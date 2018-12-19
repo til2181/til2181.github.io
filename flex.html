@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Flex-верстка</title>
+	<style>
+		.d1, .d2, .d3, .d4 {
+			
+			height: 100px;
+			
+			border: 1px solid black;
+			box-sizing: border-box;
+		}
+		.d1 {
+			width: 20%;
+			background-color: red;
+		}
+		.d2 {
+			width: 20%;
+			background-color: green;
+		}
+		.d3 {
+			width: 20%;
+			background-color: blue;
+		}
+		.d4 {
+			width: 20%;
+			background-color: yellow;
+		}
+		.container {
+			height: 500px;
+			background-color: grey;
+			border: 1px solid black;
+			display: flex;
+			flex-direction: column-reverse; 
+			justify-content: space-between;
+			align-items: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="d1"></div>
+		<div class="d2"></div>
+		<div class="d3"></div>
+		<div class="d4"></div>
+	</div>
+</body>
+</html>
