@@ -32,16 +32,17 @@ h1 {
 }
 p {
 	font-size: 14pt;	
+	margin: 0 30px;
+	text-align: justify;
 }
 .up {
 	position: fixed;
-	right: 40px;
-	bottom: 40px;
-	border-radius: 50%; 
-	width: 30px;
-	height: 30px;	
-	border: 1px solid grey;
+	right: 10px;
+	bottom: 20px;
+	width: 15px;
+	height: 40px;	
 }
 .up>img {
+	height: 100%;
 	width: 100%;
 }
