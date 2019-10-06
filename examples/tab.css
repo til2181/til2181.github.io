@@ -1,0 +1,47 @@
+* {
+	box-sizing: border-box;
+}
+.wrapper {
+	position: relative;
+	width: 80%;
+	height: 200px;
+	margin: auto;
+	float: none;
+}
+.section {
+	width: 30%;
+	height: 200px;
+	border: 3px solid grey;
+	border-radius: 20px;
+	margin: 0 1.5%;
+	float: left;
+}
+
+a>img {
+	width: 50px;
+	border: 5px solid grey;
+	display: block;
+	margin: 10px auto;
+}
+h1 {
+	text-align: center;
+	font-size: 18pt;
+}
+.text p {
+	margin: 0 10px;
+}
+p {
+	font-size: 14pt;	
+}
+.up {
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+	border-radius: 50%; 
+	width: 30px;
+	height: 30px;	
+	border: 1px solid grey;
+}
+.up>img {
+	width: 100%;
+}
