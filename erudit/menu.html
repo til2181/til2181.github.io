@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>menu_my</title>
+  <style>
+	a {
+		text-decoration: none;
+		display: block;
+		color: #666; /* Цвет текста */
+		border: 1px solid #ccc;/* Рамка вокруг пунктов меню */
+		background-color: #f0f0f0; /* Цвет фона */
+		padding: 5px;
+	}
+	a:hover {
+		color: white; /* Цвет текста активного пункта */
+		background-color: #5488af; /* Цвет фона активного пункта */
+	}
+	li ul {
+		display: none;
+	}
+	ul {
+		width: 180px;
+		list-style: none;
+	}
+	li:hover ul {
+		display: block;
+		position: absolute;
+		margin-left: 120px;
+		margin-top: -31px;
+	}
+  </style>
+ </head>
+ <body>
+  <ul>
+   <li><a href="">Математика</a>
+    <ul> 
+     <li><a href="">Функції</a></li> 
+     <li><a href="">Рівняння</a></li> 
+     <li><a href="">Множини</a></li> 
+     <li><a href="" class="brd">Графіки</a></li> 
+    </ul> 
+   </li> 
+   <li><a href="">Фізика</a> 
+    <ul> 
+     <li><a href="linku1.html">Механіка</a></li> 
+     <li><a href="linku2.html">Динаміка</a></li> 
+     <li><a href="linku3.html">Оптика</a></li> 
+     <li><a href="linku4.html" class="brd">Електрика</a></li> 
+    </ul> 
+   </li>
+   <li><a href="">Хімія</a> 
+    <ul> 
+     <li><a href="linkc1.html">Метали</a></li> 
+     <li><a href="linkc2.html">Неметали</a></li> 
+     <li><a href="linkc3.html">Луги</a></li> 
+     <li><a href="linkc4.html" class="brd">Кислоти</a></li> 
+    </ul> 
+   </li> 
+   <li><a href="" class="brd">Інформатика</a>
+	<ul> 
+     <li><a href="linkc1.html">Текстові процесори</a></li> 
+     <li><a href="linkc2.html">Табличні процесори</a></li> 
+     <li><a href="linkc3.html">Бази даних</a></li> 
+     <li><a href="linkc4.html" class="brd">Презентації</a></li> 
+    </ul>
+   </li> 
+  </ul>
+ </body>
+</html>
