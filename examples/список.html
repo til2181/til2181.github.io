@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+function ch(){
+	var nm = frm.sp.selectedIndex;
+	var str = frm.sp.options[nm].text;
+	im.style.backgroundSize = '100%';
+	im.style.backgroundImage = 'url('+str+')';
+	naz.innerText = str;
+}
+</script>
+</head>
+<body>
+<form name="frm">
+<select name="sp">
+<option value="bio">Biology.jpg</option>
+<option value="chem">Chemistry.png</option>
+<option value="hist">History.png</option>
+</select>
+<input type="button" value="Change" onclick="ch();">
+</form>
+<div id="im" style="width: 200px; height: 200px; border: 1px solid black;"></div>
+<p id="naz"></p>
+</body>
+</html>
