@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Сонячна система</title>
+	<style>
+#knop {
+	display: block; margin: auto;
+	text-align: center; font-size: 15pt;
+	border: 2px solid grey;
+	color: white; background-color: grey;
+	border-radius: 50%;
+	width: 30px; height: 30px;
+	text-decoration: none;
+}
+#knop:hover {
+	color: grey; background-color: white;	
+} 
+table, td, th {
+	border: 1px solid #ffe925;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+}
+table {
+	width: 60%;
+	margin: auto;
+}
+td:first-child {
+	width: 10%;
+}
+td:nth-child(2) {
+	text-align: left;
+	width: 20%;
+}
+tr:hover {
+	background: #2196f3;	
+}
+td:hover, th:hover {
+	color: white; font-weight: bold;
+}
+.wrapper {
+	width: 60%;
+	margin: auto;
+	height: 205px;
+	border: 1px solid black;
+	background: white;
+}
+.wrapper>div {
+	margin-top: 15px;
+	height: 20px;
+	width: 80%;
+	text-align: center;
+	padding: 5px;
+	color: black;
+}
+#mer {
+	background-color: #d09682;
+	width: 36%;
+}
+#mer:hover:after {
+	content: ". Діаметр - 4880 км";
+}
+#ven {
+	background-color: #ffeb3b;
+	width: 90%;
+}
+#ven:hover:after {
+	content: ". Діаметр - 12 104 км";
+}
+#zem {
+	background-color: #00bcd4;
+	width: 95%;
+}
+#zem:hover:after {
+	content: ". Діаметр - 12 742 км";
+}
+#mars {
+	background-color: #f44336;
+	width: 51%;
+}
+#mars:hover:after {
+	content: ". Діаметр - 6792 км";
+}
+li {
+	list-style-type: none;
+}
+li:before {
+  content: "\2729  ";
+}
+h1, h2, h3 {
+	text-align: center;
+	color: #2196f3;
+	text-shadow: -2px -2px 5px #ffe925;
+}
+p:first-letter {
+	display: block;
+	float: left;
+	padding: 5px 8px;
+	border: 4px double #ffe925;
+	color: #2196f3;
+	border-radius: 10px;
+	margin-right: 5px;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+p {
+	text-align: justify;
+}
+dt {
+	font-weight: bold;
+	color: #2196f3;
+}
+body {
+	color: #ffe925;
+	background-image: radial-gradient(circle at 100% 100%, #f9eec7 150px, #ffb60f 170px, #221554 190px, #221554);
+}
+	</style>
+</head>
+<body>
+<h1 id="up">Сонячна система</h1>
+<p>Сонячна система – планетна система, що включає в себе центральну зорю – Сонце, і всі природні космічні об'єкти (планети, астероїди, комети, потоки сонячного вітру тощо), які об'єднуються гравітаційною взаємодією.</p>
+<h2>Сонце</h2>
+<p>Сонце – зоря, що є центром Сонячної системи. Це гаряча плазма, майже ідеально сферично сплетена магнітними полями. За діаметром приблизно 1,3 млн км, має масу близько 2 × 10<sup>30</sup> кг. Джерелом енергії Сонця є термоядерні реакції в його ядрі.</p>
+<h2>Планети</h2>
+<table>
+	<tr>
+		<th>Номер <br>від Сонця</th>
+		<th>Назва</th>
+		<th>Середня відстань<br>від Сонця (в а.о.)</th>
+		<th>Середній радіус <br>(в км)</th>
+		<th>Маса <br>(відносно земної)</th>
+		<th>Кількість <br>супутників</th>
+	</tr>
+	<tr><th colspan="6">Планети земної групи (внутрішні планети)</th></tr>
+	<tr>
+		<td>1</td>
+		<td>Меркурій</td>
+		<td>0,4</td>
+		<td>2440</td>
+		<td>0,055</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>Венера</td>
+		<td>0,7</td>
+		<td>6052</td>
+		<td>0,815</td>
+		<td>0</td>
+	</tr>
+	<tr>
+		<td>3</td>
+		<td>Земля</td>
+		<td>1</td>
+		<td>6371</td>
+		<td>1</td>
+		<td>1</td>
+	</tr>
+	<tr>
+		<td>4</td>
+		<td>Марс</td>
+		<td>1,5</td>
+		<td>3396</td>
+		<td>0,107</td>
+		<td>2</td>
+	</tr>
+	<tr><th colspan="6">Газові гіганти (зовнішні планети)</th></tr>
+	<tr>
+		<td>5</td>
+		<td>Юпітер</td>
+		<td>5,2</td>
+		<td>69 911</td>
+		<td>318</td>
+		<td>67</td>
+	</tr>
+	<tr>
+		<td>6</td>
+		<td>Сaтурн</td>
+		<td>9,6</td>
+		<td>60 268</td>
+		<td>95</td>
+		<td>62</td>
+	</tr>
+	<tr>
+		<td>7</td>
+		<td>Уран</td>
+		<td>19,2</td>
+		<td>25 559</td>
+		<td>14</td>
+		<td>27</td>
+	</tr>
+	<tr>
+		<td>8</td>
+		<td>Нептун</td>
+		<td>30,1</td>
+		<td>24 764</td>
+		<td>17</td>
+		<td>14</td>
+	</tr>
+</table>
+<h3>Порівняння діаметрів планет земної групи</h3>
+<div class="wrapper">
+	<div id="mer">Меркурій</div>
+	<div id="ven">Венера</div>
+	<div id="zem">Земля</div>
+	<div id="mars">Марс</div>
+</div>
+<h3>Найбільш відомі супутники планет</h3>
+<dl>
+	<dt>Земля</dt><dd><li> Місяць</li></dd>
+	<dt>Марс</dt>
+	<dd><li> Фобос</li>
+	<li> Деймос</li></dd>
+	<dt>Юпітер</dt>
+	<dd>
+		<li> Ганімед</li>
+		<li> Каллісто</li>
+		<li> Іо</li>
+		<li> Європа</li>
+	 </dd>
+	<dt>Сатурн</dt>
+	<dd><li> Титан</li>
+	<li> Енцелад</li></dd>
+	<dt>Уран</dt>
+	<dd>
+		<li> Титанія</li>
+		<li> Оберон</li>
+		<li> Умбріель</li>
+		<li> Аріель</li>
+		<li> Міранда</li>
+	</dd>
+	<dt>Нептун</dt>
+	<dd><li> Тритон</li></dd>
+</dl>
+<div><a href="#up" id="knop">&#11014</a></div>
+</body>
+</html>
