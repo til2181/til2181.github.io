@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title>Флекс-кубик</title>
+	<style>
+    * {
+      box-sizing: border-box;
+    }
+		.side {
+      background-color: #e7e7e7;
+      width: 104px;
+      height: 104px;
+      border-radius: 10%;
+      padding: 4px;
+    }
+    .point {
+      display: block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin: 4px;
+      background-color: #333;
+    }
+    html {
+      height: 100%;
+    }
+    body {
+      height: 100%;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .first-side {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .second-side {
+      display: flex;
+      justify-content: space-between;
+    }
+    .second-side .point:nth-child(2) {
+      align-self: flex-end;
+    }
+    .third-side {
+      display: flex;
+      justify-content: space-between;
+    }
+    .third-side .point:nth-child(2) {
+      align-self: center;
+    }
+    .third-side .point:nth-child(3) {
+      align-self: flex-end;
+    }
+
+    .fourth-side, .fifth-side, .sixth-side {
+      display: flex;
+      justify-content: space-between;
+    }
+    .fourth-side .col, .fifth-side .col, .sixth-side .col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .fifth-side .col:nth-child(2) {
+      justify-content: center;
+    }
+	</style>
+</head>
+<body>
+	
+   <div class="side first-side">
+     <span class="point"></span>
+   </div>
+
+   <div class="side second-side">
+     <span class="point"></span>
+     <span class="point"></span>
+   </div>
+
+   <div class="side third-side">
+     <span class="point"></span>
+     <span class="point"></span>
+     <span class="point"></span>
+   </div>
+
+   <div class="side fourth-side">
+    <div class="col">
+     <span class="point"></span>
+     <span class="point"></span>
+    </div>
+    <div class="col">
+     <span class="point"></span>
+     <span class="point"></span>
+    </div>
+   </div>
+
+   <div class="side fifth-side">
+    <div class="col">
+     <span class="point"></span>
+     <span class="point"></span>
+    </div>
+    <div class="col">
+      <span class="point"></span>
+    </div>
+    <div class="col">
+     <span class="point cnt"></span>
+     <span class="point"></span>
+    </div>
+   </div>
+
+   <div class="side sixth-side">
+    <div class="col">
+     <span class="point"></span>
+     <span class="point"></span>
+     <span class="point"></span>
+    </div>
+    <div class="col">
+     <span class="point"></span>
+     <span class="point"></span>
+     <span class="point"></span>
+    </div>
+   </div>
+</body>
+</html>
