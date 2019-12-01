@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Flex меню</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			flex-wrap: wrap;
+			font-family: "Open Sans", sans serif;
+			font-weight: bold;
+			background: lightblue;
+			/*border: 2px solid grey;*/
+			box-shadow: 2px 2px 5px blue;
+			
+		}
+		.header .menu ul {
+			display: flex;
+			list-style: none;
+			/*flex-wrap: wrap;*/
+			line-height: 1.5;
+
+		}
+		.header .logo {
+  			padding-left: 30px;
+		}
+		.header .menu ul li {
+  			margin: 20px 10px;
+		}
+		a {
+			  text-transform: uppercase;
+			  text-decoration: none;
+			  font-weight: bold;
+			  color: #271bc3;
+
+		}
+		.phone {
+		  font-size: 110%;
+		  color: red;
+		  padding-right: 40px;
+		}
+
+		@media screen and (max-width: 1080px) {
+		  .phone, .logo {
+		    margin: auto;
+		  }
+		}
+		@media screen and (max-width: 500px) {
+		  .header  {
+		    flex-direction: column;
+		  }
+		  .header .menu ul {
+		    flex-direction: column;
+		    align-self: center;
+		  }
+		  .header .menu ul li {
+		    margin: 5px;
+		  }
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<header class="header">
+   <div class="logo">
+   	<a href="#"><img src="logo-liceum.png" alt="Ліцей Політ"></a>
+   </div>
+   <nav class="menu">
+    <ul>
+     <li><a href="#">Ліцей сьогодні</a></li>
+     <li><a href="#">Вступнику</a></li>
+     <li><a href="#">Ліцеїсту</a></li>
+     <li><a href="#">Гуртки</a></li>
+     <li><a href="#">Як нас знайти</a></li>
+    </ul>
+   </nav>
+   <div class="phone">
+   &#9742; 
+   +380536758470
+   </div>
+  </header>
+
+</body>
+</html>
