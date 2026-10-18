@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кімнати в замку — рекурсивна заливка (DFS)</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1730;--panel:#0e2145;--line:#16406b;--cyan:#22d3ee;--amber:#fbbf24;--teal:#2dd4bf;--text:#cfe8f5;--dim:#6f92ad;--wall:#050c1a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{color-scheme:dark;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+background-image:linear-gradient(rgba(34,211,238,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.07) 1px,transparent 1px);background-size:28px 28px}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 32px}
+h1{font-size:20px;margin:0 0 2px;color:var(--cyan)}
+.sub{color:var(--dim);margin:0 0 14px;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:14px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
+.panel h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin:0 0 8px}
+#grid{display:grid;gap:3px;touch-action:manipulation}
+.cell{aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;
+background:#12305a;color:rgba(255,255,255,.55);border:1px solid transparent;transition:background .15s}
+.cell.w{background:var(--wall);border-color:#12263f}
+.cell.scan{outline:2px dashed var(--amber);outline-offset:-2px}
+.cell.cur{outline:3px solid #fff;outline-offset:-3px;color:#fff;font-weight:700}
+.cell.st{box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+button,select{font:inherit;background:#0b1d3d;color:var(--cyan);border:1px solid var(--cyan);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover:not(:disabled){background:var(--cyan);color:#04121f}
+button:disabled{opacity:.4;cursor:default}
+button.pri{background:var(--amber);border-color:var(--amber);color:#1b1200;font-weight:700}
+label{color:var(--dim);font-size:12px;display:flex;align-items:center;gap:6px}
+input[type=range]{accent-color:var(--amber);width:110px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.stat{border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.stat b{display:block;font-size:22px;color:var(--teal)}
+.stat span{font-size:11px;color:var(--dim)}
+#msg{min-height:44px;color:var(--text);font-size:13px;border-left:3px solid var(--amber);padding-left:8px;margin-bottom:12px}
+#stack{display:flex;flex-direction:column-reverse;gap:3px;max-height:190px;overflow-y:auto;border:1px dashed var(--line);border-radius:6px;padding:6px;min-height:40px}
+.fr{padding:2px 8px;border-radius:4px;background:#0b1d3d;border-left:4px solid var(--c);font-size:12px}
+.fr.top{background:var(--teal);color:#04121f;font-weight:700}
+.empty{color:var(--dim);font-size:12px;text-align:center}
+pre{margin:0;font-size:12px;color:var(--text);overflow-x:auto}
+.k{color:var(--cyan)}.c{color:var(--dim)}
+.hint{color:var(--dim);font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Кімнати в замку: рекурсивна заливка</h1>
+<p class="sub">План замку — сітка. «#» — стіна, «.» — підлога. Кімната — група клітинок, з’єднаних по вертикалі чи горизонталі. Підрахунок: для кожної нерозвіданої клітинки запускаємо DFS.</p>
+<div class="layout">
+<div>
+<div class="panel">
+<h2>План замку</h2>
+<div id="grid"></div>
+<div class="ctrl">
+<button id="bStep">Крок ▸</button>
+<button id="bPlay" class="pri">▶ Грати</button>
+<button id="bReset">Скинути</button>
+<label>Швидкість <input type="range" id="spd" min="1" max="30" value="6"></label>
+</div>
+<div class="ctrl">
+<label>Приклад
+<select id="preset"><option value="0">Замок</option><option value="1">Лабіринт</option><option value="2">Одна велика зала</option><option value="3">Випадковий</option></select></label>
+</div>
+<div class="hint">Клацніть по клітинці, щоб змінити стіну/підлогу (скидає процес).</div>
+</div>
+</div>
+<div>
+<div class="panel">
+<h2>Стан</h2>
+<div class="stats">
+<div class="stat"><b id="sRooms">0</b><span>кімнат знайдено</span></div>
+<div class="stat"><b id="sDepth">0</b><span>глибина стека зараз</span></div>
+<div class="stat"><b id="sMax">0</b><span>макс. глибина</span></div>
+<div class="stat"><b id="sVis">0</b><span>відвідано клітинок</span></div>
+</div>
+<div id="msg">Натисніть «Крок» або «Грати».</div>
+<h2>Стек викликів</h2>
+<div id="stack"></div>
+</div>
+<div class="panel" style="margin-top:14px">
+<h2>Алгоритм</h2>
+<pre><span class="k">for</span> r, c <span class="k">in</span> сітка:
+  <span class="k">if</span> підлога(r,c) <span class="k">and not</span> відвідано(r,c):
+    кімнати += 1
+    dfs(r, c)
+
+<span class="k">def</span> dfs(r, c):
+  відвідано[r][c] = кімнати
+  <span class="k">for</span> (nr, nc) <span class="k">in</span> ↑ → ↓ ←:
+    <span class="k">if</span> підлога(nr,nc) <span class="k">and not</span> відвідано(nr,nc):
+      dfs(nr, nc)   <span class="c"># рекурсія</span></pre>
+</div>
+</div>
+</div>
+</div>
+<script>
+const PRESETS=[
+["############","#..#...#...#","#..#...#...#","####...##.##","#..#.#.#...#","#..#.#.#...#","#....#.#####","#..#.#...#.#","############"],
+["############","#.#......#.#","#.#.####.#.#","#.#.#..#.#.#","#...#.##...#","#####.#..###","#.....#.##.#","#.#####.#..#","############"],
+["############","#..........#","#..........#","#..........#","#..........#","#..........#","#..........#","#..........#","############"]];
+const COL=["#ef4444","#f59e0b","#22c55e","#06b6d4","#6366f1","#d946ef","#ec4899","#84cc16","#14b8a6","#f97316"];
+const DIRS=[[-1,0],[0,1],[1,0],[0,-1]];
+const $=id=>document.getElementById(id);
+let R=9,C=12,g,v,st,scan,cur,rooms,visN,maxD,gen,timer=null,done=false,msgTxt;
+
+function load(i){
+  if(i==3){g=Array.from({length:R},(_,r)=>Array.from({length:C},(_,c)=>(r==0||c==0||r==R-1||c==C-1||Math.random()<.35)?1:0));}
+  else g=PRESETS[i].map(s=>[...s].map(ch=>ch=="#"?1:0));
+  reset();
+}
+function reset(){
+  stop();
+  v=g.map(r=>r.map(()=>0));st=[];scan=null;cur=null;rooms=0;visN=0;maxD=0;done=false;
+  gen=run();msgTxt="Натисніть «Крок» або «Грати».";render();
+}
+function* run(){
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    if(!g[r][c]&&!v[r][c]){
+      scan=[r,c];rooms++;
+      msgTxt=`Сканування дійшло до (${r},${c}): нерозвідана підлога → нова кімната №${rooms}. Викликаємо dfs(${r},${c}).`;
+      yield;
+      yield* dfs(r,c);
+    }
+  }
+  scan=null;cur=null;done=true;
+  msgTxt=`Готово! Усі клітинки перевірено. Кількість кімнат: ${rooms}.`;yield;
+}
+function* dfs(r,c){
+  v[r][c]=rooms;visN++;st.push([r,c,rooms]);maxD=Math.max(maxD,st.length);cur=[r,c];
+  msgTxt=`dfs(${r},${c}): позначаю клітинку кімнатою №${rooms}, глибина стека ${st.length}. Перебираю сусідів: ↑ → ↓ ←.`;
+  yield;
+  for(const [dr,dc] of DIRS){
+    const nr=r+dr,nc=c+dc;
+    if(nr>=0&&nc>=0&&nr<R&&nc<C&&!g[nr][nc]&&!v[nr][nc]){
+      msgTxt=`З (${r},${c}) є нерозвіданий сусід (${nr},${nc}) → рекурсивний виклик dfs(${nr},${nc}).`;
+      yield* dfs(nr,nc);
+    }
+  }
+  st.pop();cur=st.length?st[st.length-1]:null;
+  msgTxt=`dfs(${r},${c}): сусідів більше немає → return. `+(st.length?`Повертаємось до (${cur[0]},${cur[1]}).`:`Кімнату №${rooms} повністю залито.`);
+  yield;
+}
+function render(){
+  const gr=$("grid");gr.style.gridTemplateColumns=`repeat(${C},1fr)`;
+  let h="";
+  for(let r=0;r<R;r++)for(let c=0;c<C;c++){
+    let cl="cell",sty="",t="";
+    if(g[r][c])cl+=" w";
+    else if(v[r][c]){sty=`background:${COL[(v[r][c]-1)%COL.length]}`;t=v[r][c];}
+    if(scan&&scan[0]==r&&scan[1]==c)cl+=" scan";
+    if(cur&&cur[0]==r&&cur[1]==c)cl+=" cur";
+    else if(st.some(s=>s[0]==r&&s[1]==c))cl+=" st";
+    h+=`<div class="${cl}" style="${sty}" data-r="${r}" data-c="${c}">${t}</div>`;
+  }
+  gr.innerHTML=h;
+  $("sRooms").textContent=rooms;$("sDepth").textContent=st.length;$("sMax").textContent=maxD;$("sVis").textContent=visN;
+  $("msg").textContent=msgTxt;
+  $("stack").innerHTML=st.length?st.map((s,i)=>`<div class="fr${i==st.length-1?" top":""}" style="--c:${COL[(s[2]-1)%COL.length]}">dfs(${s[0]}, ${s[1]})</div>`).join(""):'<div class="empty">порожній</div>';
+  $("bStep").disabled=done;$("bPlay").disabled=done;
+}
+function step(){if(done)return false;gen.next();render();return !done;}
+function stop(){clearTimeout(timer);timer=null;$("bPlay").textContent="▶ Грати";}
+function tick(){
+  if(!step()){stop();return;}
+  timer=setTimeout(tick,1000/$("spd").value);
+}
+$("bStep").onclick=()=>{stop();step();};
+$("bPlay").onclick=()=>{if(timer){stop();}else{$("bPlay").textContent="⏸ Пауза";tick();}};
+$("bReset").onclick=reset;
+$("preset").onchange=e=>load(+e.target.value);
+$("grid").onclick=e=>{
+  const d=e.target.closest(".cell");if(!d)return;
+  const r=+d.dataset.r,c=+d.dataset.c;
+  if(r==0||c==0||r==R-1||c==C-1)return;
+  g[r][c]^=1;reset();
+};
+load(0);
+</script>
+</body>
+</html>
